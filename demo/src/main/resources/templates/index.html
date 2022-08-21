@@ -21,23 +21,23 @@
   <body>
 
     <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #bce0f9; height: 20%;" >
-      <a class="navbar-brand" href="#">BLOCKExplorer</a>
+      <a class="navbar-brand" href="/">BLOCKExplorer</a>
 
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault" >
         <ul class="navbar-nav mr-auto ">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+            <a class="nav-link disabled" href="/graph">Graph</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" th:action="@{/getBlockOrTx}" method="post">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search for block or transaction" name="whatToShow" aria-label="Search">
           <button class="btn btn-outline-primary" type="submit">Search</button>
         </form>
       </div>
@@ -46,8 +46,25 @@
     <main role="main" class="container">
 
       <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
 
     </main><!-- /.container -->

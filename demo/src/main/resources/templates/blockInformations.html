@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Explore Blockchain</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #bce0f9;" >
+      <a class="navbar-brand" href="/">BLOCKExplorer</a>
+
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault" >
+        <ul class="navbar-nav mr-auto ">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="/graph">Graph</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/getBlockOrTx}" method="post">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search for block or Tx" name="whatToShow" aria-label="Search">
+          <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+
+      </div>
+    </nav>
+    <main role="main" class="container">
+
+      <div class="starter-template" >
+    
+        <table class="table" th:if="${block != null && tx == null}">
+        <tbody>
+            <tr>
+                <th>HASH</th>
+                <td> <span th:text="${block.hash}"></span></td>
+            </tr>
+            <tr>
+                <th>CONFIRMATIONS</th>
+                <td><span th:text="${block.confirmations}"></span></td>
+            </tr>
+            <tr>
+                <th>SIZE</th>
+                <td > <span th:text="${block.size}"></span></td>
+            </tr>
+            <tr>
+                <th>HEIGHT</th>
+                <td><span th:text ="${block.height}"></span> </td>
+            </tr>
+            <tr>
+                <th>VERSION</th>
+                <td> <span th:text ="${block.version}"></span></td>
+            </tr>
+            <tr>
+                <th>MERKLE ROOT</th>
+                <td> <span th:text ="${block.merkleRoot}"></span></td>
+            </tr>
+            <tr>
+                <th>TX</th>
+                <td th:text="${block.tx}" />
+            </tr>
+
+            <tr>
+                <th>DIFFICULTY</th>
+                <td > <span th:text ="${block.difficulty}"></span></td>
+            </tr>
+            <tr>
+                <th>PREVIOUS BLOCK HASH</th>
+                <td> <span th:text ="${block.previousHash}"></span></td>
+            </tr>
+            <tr>
+                <th>NEXT BLOCK HASH</th>
+                <td> <span th:text ="${block.nextHash}"></span></td>
+            </tr>
+            <tr>
+                <th>CHAINWORK</th>
+                <TD><span th:text = "${block.chainwork}"></span></TD>
+            </tr>
+            <tr>
+                <th>TIME</th>
+                <TD><span th:text = "${block.time}"></span></TD>
+            </tr>
+
+        </tbody>
+        </table>
+        
+        <table class="table" th:if="${tx != null}">
+            <tbody>
+                <tr>
+                    <th>ACCOUNT</th>
+                    <td> <span th:text="${tx.account}"></span></td>
+                </tr>
+                <tr>
+                    <th>ADDRESS</th>
+                    <td><span th:text="${tx.address}"></span></td>
+                </tr>
+                <tr>
+                    <th>CATEGORY</th>
+                    <td > <span th:text="${tx.category}"></span></td>
+                </tr>
+                <tr>
+                    <th>AMOUNT</th>
+                    <td><span th:text ="${tx.amount}"></span> </td>
+                </tr>
+                <tr>
+                    <th>FEE</th>
+                    <td> <span th:text ="${tx.fee}"></span></td>
+                </tr>
+                <tr>
+                    <th>SIZE</th>
+                    <td> <span th:text ="${rawTx.size}"></span></td>
+                </tr>
+                <tr>
+                    <th>INPUT</th>
+                    <td> <span th:text ="${rawTx.vIn}"></span></td>
+                </tr>
+                <tr>
+                    <th>OUTPUT</th>
+                    <td> <span th:text ="${rawTx.vOut}"></span></td>
+                </tr>
+                <tr>
+                    <th>CONFIRMATIONS</th>
+                    <td> <span th:text ="${tx.confirmations}"></span></td>
+                </tr>
+                <tr>
+                    <th>BLOCK HASH</th>
+                    <td > <span th:text ="${tx.blockHash}"></span></td>
+                </tr>
+                <tr>
+                    <th>BLOCK INDEX</th>
+                    <td> <span th:text ="${tx.blockIndex}"></span></td>
+                </tr>
+                <tr>
+                    <th>BLOCK TIME</th>
+                    <td> <span th:text ="${tx.blockTime}"></span></td>
+                </tr>
+                <tr>
+                    <th>TX ID</th>
+                    <TD><span th:text = "${tx.txId}"></span></TD>
+                </tr>
+                <tr>
+                    <th>TIME</th>
+                    <TD><span th:text = "${tx.time}"></span></TD>
+                </tr>
+                <tr>
+                    <th>TIME RECEIVED</th>
+                    <TD><span th:text = "${tx.timeReceived}"></span></TD>
+                </tr>
+                <tr>
+                    <th>COMMENT TO</th>
+                    <TD><span th:text = "${tx.commentTo}"></span></TD>
+                </tr>
+                <tr>
+                    <th>COMMENT</th>
+                    <TD><span th:text = "${tx.comment}"></span></TD>
+                </tr>
+                <tr>
+                    <th>GENERATED </th>
+                    <TD><span th:text = "${tx.generated}"></span></TD>
+                </tr>
+    
+            </tbody>
+        </table>
+
+
+        <h1 th:if="${block == null && tx == null}"> Sorry, could not find block/transaction. :(</h1>
+   
+        
+      </div>
+      </div>
+
+    </main><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>
