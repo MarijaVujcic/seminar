@@ -84,7 +84,7 @@ public class ChainController {
     }
 
 
-    @GetMapping("/showGraphs")
+    @GetMapping("/showGraphsAllTime")
     ModelAndView showMeGraphs() throws JsonProcessingException, JsonMappingException {
        
        // System.out.println(response.getBody());
@@ -92,7 +92,7 @@ public class ChainController {
 
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl
-        = "https://api.blockchain.info/charts/total-bitcoins?format=json";
+        = "https://api.blockchain.info/charts/total-bitcoins?timespan=all&format=json";
         ResponseEntity<String> response
         = restTemplate.getForEntity(fooResourceUrl , String.class);
         if(response.getStatusCode().equals( HttpStatus.OK)){
@@ -105,12 +105,7 @@ public class ChainController {
         System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHH");
         List<HashMap<String,Float>> result = new ObjectMapper().readValue(value.toString(), new TypeReference<List<HashMap<String,Float>>>(){});
 
-        List<Map<String, String>> listOfMaps =  new ArrayList<>();;
-    List<String> valuesMatchingKey = listOfMaps.stream()
-        .filter(map -> map.containsKey("x"))
-        .map(map -> map.get("x"))
-        .collect(Collectors.toList());
-        System.out.println(valuesMatchingKey);
+
         ModelAndView mv = new ModelAndView("chart");
         mv.addObject("dataPointsList", result);
         mv.addObject("description", description);
@@ -118,26 +113,7 @@ public class ChainController {
         return mv;
     }
 
-    @GetMapping("/chartData")
-    @ResponseBody
-    JSONArray chartData(){
-         // https://api.blockchain.info/charts/total-bitcoins?format=json
-       RestTemplate restTemplate = new RestTemplate();
-       String fooResourceUrl
-       = "https://api.blockchain.info/charts/total-bitcoins?format=json";
-       ResponseEntity<String> response
-       = restTemplate.getForEntity(fooResourceUrl , String.class);
-       if(response.getStatusCode().equals( HttpStatus.OK)){
-
-       }
-       JSONObject jsonObj = new JSONObject(response.getBody());
-       String description = jsonObj.getString("description");
-       System.out.println(jsonObj.get("values").getClass());
-       JSONArray value   = jsonObj.getJSONArray("values");
-       System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-       return value;
-    }
-
+   
     
     
 }

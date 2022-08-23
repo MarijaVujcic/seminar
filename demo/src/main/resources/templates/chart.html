@@ -18,31 +18,93 @@
 	  </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <body>
-<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+	<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #bce0f9; height: 20%;" >
+		<a class="navbar-brand" href="/">BLOCKExplorer</a>
+  
+  
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault" >
+		  <ul class="navbar-nav mr-auto ">
+			<li class="nav-item active">
+			  <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="/about">About</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link disabled" href="/graph">Graph</a>
+			</li>
+		  </ul>
+		  <form class="form-inline my-2 my-lg-0" th:action="@{/getBlockOrTx}" method="post">
+			<input class="form-control mr-sm-2" type="text" placeholder="Search for block or transaction" name="whatToShow" aria-label="Search">
+			<button class="btn btn-outline-primary" type="submit">Search</button>
+		  </form>
+		</div>
+	  </nav>
+  
+	  <main role="main" class="container">
+<canvas id="myChart" style="width:100%;max-width:8000px"></canvas>
 
 <script th:inline="javascript">
 /*<![CDATA[*/	
 var dataPoints =  /*[[${dataPointsList}]]*/ 'beze';
+var desc =  /*[[${description}]]*/ 'beze';
+var lstX = []
+var lstY = []
+var i = 0;
+dataPoints.forEach(function(item) {
+	if(i==0){
+	const unixTimestamp = item.x
 
+	const milliseconds = unixTimestamp * 1000 // 1575909015000
 
-alert(dataPoints)
+	const dateObject = new Date(milliseconds)
+	console.log("uslo  "+ dateObject)
+	const humanDateFormat = dateObject.toLocaleString() 
+	lstX.push(humanDateFormat)
+	lstY.push(item.y);}
+
+	i+=1
+	if(i == 366 || i == 365)
+	{
+		i = 0;
+	}
+	
+});
+const unixTimestamp = dataPoints[dataPoints.length -1].x
+const milliseconds = unixTimestamp * 1000 // 1575909015000
+
+const dateObject = new Date(milliseconds)
+const humanDateFormat = dateObject.toLocaleString() 
+lstX.push(humanDateFormat)
+lstY.push(dataPoints[dataPoints.length -1].y);
+
 new Chart("myChart", {
   type: "line",
   data: {
-	label: Object.keys(dataPoints).map(function(key) {return dataPoints[key].x;}),
+    labels: lstX,
     datasets: [{
       fill: false,
       lineTension: 0,
       backgroundColor: "rgba(0,0,255,1.0)",
       borderColor: "rgba(0,0,255,0.1)",
-      data: Object.keys(dataPoints).map(function(key) {return dataPoints[key].y;}),
+      data: lstY
     }]
   },
   options: {
     legend: {display: false},
+    title: {
+      display: true,
+      text: desc,
+      fontSize: 16
+    },
+    scales: {
+      yAxes: [{ticks: {min: 0, max:lstY[-1]}}],
+    }
   }
 }); /*]]>*/
 </script>
+</main><!-- /.container -->
+
 
 </body>
 </html>
