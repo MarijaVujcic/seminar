@@ -48,25 +48,47 @@
       <div class="starter-template">
 
       <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
 
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title" style="font-weight: bold;color:rgb(124, 124, 236);">Blockchain Info - OSS</h5>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Blocks: </h6><p class="card-text" th:text="${blockchainInfo.blocks}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Chain: </h6><p class="card-text" th:text="${blockchainInfo.chain}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Best block hash: </h6><p class="card-text" th:text="${blockchainInfo.bestBlockHash}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Difficulty: </h6><p class="card-text" th:text="${blockchainInfo.difficulty}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Verification progress: </h6><p class="card-text" th:text="${blockchainInfo.verificationProgress}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Chain work: </h6><p class="card-text" th:text="${blockchainInfo.chainWork}"></p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title" style="font-weight: bold;color:rgb(124, 124, 236);">Network Info</h5>
+
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Balance:</h6><p class="card-text" th:text = "${balance}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Pooled tx:</h6><p class="card-text" th:text = "${miningInfo.pooledTx}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Network version:</h6><p class="card-text" th:text = "${netInfo.version}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Protocol version:</h6><p class="card-text" th:text = "${netInfo.protocolVersion}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Connections:</h6><p class="card-text" th:text = "${netInfo.connections}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Relay fee:</h6><p class="card-text" th:text = "${netInfo.relayFee}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Local services:</h6><p class="card-text" th:text = "${netInfo.localServices}"></p>
+              <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Local relay:</h6><p class="card-text" th:text = "${netInfo.localRelay}"></p>
+
+            </div>
+          </div>
+            <div class="card">
+              <div class="card-body">
+                <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Total bytes Recv:</h6><p class="card-text" th:text = "${netTotals.totalBytesRecv}"></p>
+                <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Total bytes sent:</h6><p class="card-text" th:text = "${netTotals.totalBytesSent}"></p>
+                <h6  style="font-weight: bold;color:rgb(124, 124, 236);">Time millis:</h6><p class="card-text" th:text = "${netTotals.timeMillis}"></p>
+              </div>
+            </div>
+        </div>
+        
+        
+      </div>
+      </div>
+      
     </main><!-- /.container -->
 
     <!-- Bootstrap core JavaScript

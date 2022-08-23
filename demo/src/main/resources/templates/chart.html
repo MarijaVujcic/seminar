@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+	
+		<title>Explore Blockchain</title>
+	
+		<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+	
+		<!-- Bootstrap core CSS -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+	
+		<!-- Custom styles for this template -->
+		<link href="starter-template.css" rel="stylesheet">
+	  </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<body>
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+<script th:inline="javascript">
+/*<![CDATA[*/	
+var dataPoints =  /*[[${dataPointsList}]]*/ 'beze';
+
+
+alert(dataPoints)
+new Chart("myChart", {
+  type: "line",
+  data: {
+	label: Object.keys(dataPoints).map(function(key) {return dataPoints[key].x;}),
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: Object.keys(dataPoints).map(function(key) {return dataPoints[key].y;}),
+    }]
+  },
+  options: {
+    legend: {display: false},
+  }
+}); /*]]>*/
+</script>
+
+</body>
+</html>
+
+
