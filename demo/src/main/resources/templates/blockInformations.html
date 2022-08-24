@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #bce0f9;" >
+    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #bce0f9; height: 20%;" >
       <a class="navbar-brand" href="/">BLOCKExplorer</a>
 
 
@@ -55,7 +55,7 @@
 
       <div class="starter-template"  >
     
-        <table class="table" th:if="${block != null && tx == null}">
+        <table class="table" th:if="${block != null && tx == null}" >
         <tbody>
             <tr>
                 <th>HASH</th>
@@ -109,13 +109,10 @@
 
         </tbody>
         </table>
-        
-        <table class="table" th:if="${tx != null}">
-            <tbody>
-                <tr>
-                    <th>HASH</th>
-                    <td> <span th:text="${tx.hash}"></span></td>
-                </tr>
+      </div>
+      <div class="starter-template"  >
+        <table  class= "table" th:if="${tx != null}" >
+            <tbody >
                 <tr>
                     <th>TX ID</th>
                     <td><span th:text="${tx.txId}"></span></td>
@@ -129,8 +126,8 @@
                     <td> <span th:text ="${tx.size}"></span></td>
                 </tr>
                 <tr>
-                    <th>INPUT</th>
-                    <td style="width: 50%; overflow-wrap: break-word;" th:each="in: ${lstIn}">
+                    <th>INPUTS</th>
+                    <td style="overflow-wrap: break-word;" th:each="in: ${lstIn}">
                     <div style="width: 50%;">
                        <P style="font-weight: bold;">VOUT:</P> <p th:text="${in.vout}"></p>
                        <P style="font-weight: bold;">SCRIPT SIG:</P> <p  th:text="${in.scriptSig}" />
@@ -139,9 +136,9 @@
                     </div>
                     </td>
                 <tr>
-                    <th>OUTPUT</th>
-                    <td style="width: 50%; overflow-wrap: break-word;" th:each="out: ${lstOut}">
-                        <div style="width: 50%;">
+                    <th>OUTPUTS</th>
+                    <td style="overflow-wrap: break-word;width: 50%;" >
+                        <div style="width: 50%; overflow-wrap: break-word;" th:each="out: ${lstOut}">
                            <P style="font-weight: bold;">VALUE:</P> <p th:text="${out.value}"></p>
                            <P style="font-weight: bold;">N:</P> <p  th:text="${out.n}" />
                            <P style="font-weight: bold;">PUBKEY SCRIPT:<p th:text="${out.scriptPubKey}"/>
