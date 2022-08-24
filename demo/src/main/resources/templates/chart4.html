@@ -38,6 +38,7 @@
 				  <a class="dropdown-item" href="/showGraphsAllTime">Total circulating bitcoins </a>
 				  <a class="dropdown-item" href="/showMarketPlaceAllTime">Market price</a>
 				  <a class="dropdown-item" href="/showConfirmedTransaction">Confirmed transactions</a>
+                  <a class="dropdown-item" href="/showSizeOfBlockchain">Size of blockchain</a>
 				</div>
 			  </li>
 		  </ul>
@@ -55,22 +56,22 @@
 	  <div class="col-sm-3 sidenav">
 		<h4>Graphs Section</h4>
 		<div>
-			<small>Graphs represents total number of mined bitcoin that are currently circulating on the network.</small>
+			<small>Graphs represents the size of blockchain in some period of time.</small>
 		</div>
 		<div class="btn-group-vertical">
-			<a th:href="@{/showGraphLast30}"> 
+			<a th:href="@{/showConfirmedTransaction30}"> 
 			<button type="button" class="btn btn-primary" th:ac> Last 30 days</button>
 			</a>
-			<a th:href="@{/showGraph60days}"> 
+			<a th:href="@{/showConfirmedTransaction60}"> 
 			<button type="button" class="btn btn-primary">Last 60 days</button>
 			</a>
-			<a th:href="@{/showGraph180days}"> 
+			<a th:href="@{/showSizeOfBlockchain180days}"> 
 				<button type="button" class="btn btn-primary">Last 180 days  </button>
 			</a>
-			<a th:href="@{/showGraphLast3Years}"> 
-			<button type="button" class="btn btn-primary">Last 3 years</button>
+			<a th:href="@{/showSizeOfBlockchain1Year}"> 
+			<button type="button" class="btn btn-primary">Last year</button>
 			</a>
-			<a th:href="@{/showGraphsAllTime}"> 
+			<a th:href="@{/showConfirmedTransaction}"> 
 			<button type="button" class="btn btn-primary">All time  </button>
 			</a>
 
@@ -187,7 +188,7 @@ new Chart("myChart30", {
                     var xLabels = data.ticks;
 
                     xLabels.forEach(function (labels, i) {
-                        if (i % 5 != 0){
+                        if (i % 20 != 0){
                             xLabels[i] = '';
                         }
                     });

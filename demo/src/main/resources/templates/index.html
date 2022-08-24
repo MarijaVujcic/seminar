@@ -32,8 +32,17 @@
           <li class="nav-item">
             <a class="nav-link" href="/about">About</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="/graph">Graph</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Graphs
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/showGraphsAllTime">Total circulating bitcoins </a>
+              <a class="dropdown-item" href="/showMarketPlaceAllTime">Market price</a>
+              <a class="dropdown-item" href="/showConfirmedTransaction">Confirmed transactions</a>
+              <a class="dropdown-item" href="/showSizeOfBlockchain">Size of blockchain</a>
+
+            </div>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" th:action="@{/getBlockOrTx}" method="post">
