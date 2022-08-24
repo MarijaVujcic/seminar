@@ -26,7 +26,6 @@ public class HomeController {
     @GetMapping("/")
     ModelAndView welcomePage(){
         // BlockChainInfo
-        // TODO: POGLEDATI KAKO DODATI OVO NA MAIN PAGE PLUS GRAF
         BigDecimal balance = bitcClient.getBalance();
         BlockChainInfo blockchainInfo = bitcClient.getBlockChainInfo();
         

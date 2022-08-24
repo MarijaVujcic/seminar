@@ -1,14 +1,12 @@
 package com.crypto.demo.Controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.json.JSONObject;
-import java.util.Map;
-import java.util.stream.Collectors;
+
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +17,8 @@ import org.springframework.http.HttpStatus ;
 import wf.bitcoin.javabitcoindrpcclient.*;
 import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient.Block;
 import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient.Transaction;
+import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient.RawTransaction.In;
+import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient.RawTransaction.Out;
 import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient.RawTransaction;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +43,10 @@ public class ChainController {
 
     @PostMapping("/getBlockOrTx")
     ModelAndView showMeInfoBlock(@Validated String whatToShow){
-        // TODO: PROVJERITI ZASTO NE VADI TX
         Block b;
-        Transaction tx = null;
-        RawTransaction rawTx = null; 
+        RawTransaction tx = null; 
+        List<In> lstIn = null;
+        List<Out> lstOut = null;
         List<String> txs = new ArrayList<String>();
         try{
             if(whatToShow.length() < 64)
@@ -65,22 +65,24 @@ public class ChainController {
         if(b==null){
             
             try{
-                System.out.println("USLOOO U TX");
-                tx = bitcClient.getTransaction(whatToShow);
-                rawTx = tx.raw();
+                tx = bitcClient.getRawTransaction(whatToShow);
+                lstIn = tx.vIn();
+                lstOut = tx.vOut();
                 
+                
+                System.out.println(lstIn);
             }
             catch (Exception e){
-                System.out.println("Error getting transaction");
+                System.out.println("Error getting transaction " + e.getMessage());
                 tx = null;
             }
         }
     
         ModelAndView m = new ModelAndView("blockInformations");
         m.addObject("block", b);
-        m.addObject("txs", txs);
+        m.addObject("lstIn", lstIn);
+        m.addObject("lstOut", lstOut);
         m.addObject("tx", tx);
-        m.addObject("rawTx", rawTx);
         return m;
     }
 
@@ -546,4 +548,17 @@ public class ChainController {
         }
         return mv;
     }
+
+
+
+    /////////////////////////////////////////
+    @GetMapping("/mempool")
+    ModelAndView showMempool(){
+        ModelAndView mv = new ModelAndView("mempool");
+        List<String> lstTxs = bitcClient.getRawMemPool();
+      //   System.out.println(bitcClient.listTransactions().toString());
+        mv.addObject("txs", lstTxs);
+        return mv;
+    }
 }
+

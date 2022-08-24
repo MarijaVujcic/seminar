@@ -29,10 +29,19 @@
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
+            <a class="nav-link" href="/mempool">Mempool</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="/graph">Graph</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Graphs
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/showGraphsAllTime">Total circulating bitcoins </a>
+              <a class="dropdown-item" href="/showMarketPlaceAllTime">Market price</a>
+              <a class="dropdown-item" href="/showConfirmedTransaction">Confirmed transactions</a>
+              <a class="dropdown-item" href="/showSizeOfBlockchain">Size of blockchain</a>
+
+            </div>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" th:action="@{/getBlockOrTx}" method="post">
@@ -44,7 +53,7 @@
     </nav>
     <main role="main" class="container">
 
-      <div class="starter-template" >
+      <div class="starter-template"  >
     
         <table class="table" th:if="${block != null && tx == null}">
         <tbody>
@@ -104,76 +113,62 @@
         <table class="table" th:if="${tx != null}">
             <tbody>
                 <tr>
-                    <th>ACCOUNT</th>
-                    <td> <span th:text="${tx.account}"></span></td>
-                </tr>
-                <tr>
-                    <th>ADDRESS</th>
-                    <td><span th:text="${tx.address}"></span></td>
-                </tr>
-                <tr>
-                    <th>CATEGORY</th>
-                    <td > <span th:text="${tx.category}"></span></td>
-                </tr>
-                <tr>
-                    <th>AMOUNT</th>
-                    <td><span th:text ="${tx.amount}"></span> </td>
-                </tr>
-                <tr>
-                    <th>FEE</th>
-                    <td> <span th:text ="${tx.fee}"></span></td>
-                </tr>
-                <tr>
-                    <th>SIZE</th>
-                    <td> <span th:text ="${rawTx.size}"></span></td>
-                </tr>
-                <tr>
-                    <th>INPUT</th>
-                    <td> <span th:text ="${rawTx.vIn}"></span></td>
-                </tr>
-                <tr>
-                    <th>OUTPUT</th>
-                    <td> <span th:text ="${rawTx.vOut}"></span></td>
-                </tr>
-                <tr>
-                    <th>CONFIRMATIONS</th>
-                    <td> <span th:text ="${tx.confirmations}"></span></td>
-                </tr>
-                <tr>
-                    <th>BLOCK HASH</th>
-                    <td > <span th:text ="${tx.blockHash}"></span></td>
-                </tr>
-                <tr>
-                    <th>BLOCK INDEX</th>
-                    <td> <span th:text ="${tx.blockIndex}"></span></td>
-                </tr>
-                <tr>
-                    <th>BLOCK TIME</th>
-                    <td> <span th:text ="${tx.blockTime}"></span></td>
+                    <th>HASH</th>
+                    <td> <span th:text="${tx.hash}"></span></td>
                 </tr>
                 <tr>
                     <th>TX ID</th>
-                    <TD><span th:text = "${tx.txId}"></span></TD>
+                    <td><span th:text="${tx.txId}"></span></td>
+                </tr>
+                <tr>
+                    <th>VERSION</th>
+                    <td > <span th:text="${tx.version}"></span></td>
+                </tr>
+                <tr>
+                    <th>SIZE</th>
+                    <td> <span th:text ="${tx.size}"></span></td>
+                </tr>
+                <tr>
+                    <th>INPUT</th>
+                    <td style="width: 50%; overflow-wrap: break-word;" th:each="in: ${lstIn}">
+                    <div style="width: 50%;">
+                       <P style="font-weight: bold;">VOUT:</P> <p th:text="${in.vout}"></p>
+                       <P style="font-weight: bold;">SCRIPT SIG:</P> <p  th:text="${in.scriptSig}" />
+                       <P style="font-weight: bold;">SEQUENCE:<p th:text="${in.sequence}"/>
+                    
+                    </div>
+                    </td>
+                <tr>
+                    <th>OUTPUT</th>
+                    <td style="width: 50%; overflow-wrap: break-word;" th:each="out: ${lstOut}">
+                        <div style="width: 50%;">
+                           <P style="font-weight: bold;">VALUE:</P> <p th:text="${out.value}"></p>
+                           <P style="font-weight: bold;">N:</P> <p  th:text="${out.n}" />
+                           <P style="font-weight: bold;">PUBKEY SCRIPT:<p th:text="${out.scriptPubKey}"/>
+                        
+                        </div>
+                        </td>
+                </tr>
+               
+                <tr>
+                    <th>LOCK TIME</th>
+                    <TD><span th:text = "${tx.lockTime}"></span></TD>
+                </tr>
+                <tr>
+                    <th>BLOCK HASH</th>
+                    <TD><span th:text = "${tx.blockHash}"></span></TD>
+                </tr>
+                <tr>
+                    <th>CONFIRMATIONS</th>
+                    <TD><span th:text = "${tx.confirmations}"></span></TD>
                 </tr>
                 <tr>
                     <th>TIME</th>
                     <TD><span th:text = "${tx.time}"></span></TD>
                 </tr>
                 <tr>
-                    <th>TIME RECEIVED</th>
-                    <TD><span th:text = "${tx.timeReceived}"></span></TD>
-                </tr>
-                <tr>
-                    <th>COMMENT TO</th>
-                    <TD><span th:text = "${tx.commentTo}"></span></TD>
-                </tr>
-                <tr>
-                    <th>COMMENT</th>
-                    <TD><span th:text = "${tx.comment}"></span></TD>
-                </tr>
-                <tr>
-                    <th>GENERATED </th>
-                    <TD><span th:text = "${tx.generated}"></span></TD>
+                    <th>BLOCK TIME </th>
+                    <TD><span th:text = "${tx.blocktime}"></span></TD>
                 </tr>
     
             </tbody>
