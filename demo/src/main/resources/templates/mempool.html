@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="refresh" content="10">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
     <title>Explore Blockchain</title>
@@ -53,14 +54,23 @@
     </nav>
 
     <main role="main" class="container">
+      <div class="row">
 
-      <div class="container">
-        <table class="table">
-        <tr th:each="tx: ${txs}">
-            <td th:text="${tx}" />
-        </tr>
-    </table>
-      </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title" style="font-weight: bold;color:rgb(124, 124, 236);">Mempool transactions</h5>
+              <h6 style="font-weight: bold;color:rgb(124, 124, 236);">Number of transactions in mempool: <p style="display:inline;color:rgb(0, 0, 0);">[[${numTxs}]]</p></h6>
+              <div class="container">
+                <table class="table">
+                <tr th:each="tx: ${txs}">
+                    <td th:text="${tx}" />
+                </tr>
+                </table>
+              </div>
+                </div>
+          </div>
+      
       
     </main><!-- /.container -->
 

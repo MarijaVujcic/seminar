@@ -3,7 +3,6 @@ package com.crypto.demo.Controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.json.JSONObject;
 
@@ -16,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus ;
 import wf.bitcoin.javabitcoindrpcclient.*;
 import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient.Block;
-import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient.Transaction;
 import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient.RawTransaction.In;
 import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient.RawTransaction.Out;
 import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient.RawTransaction;
@@ -553,11 +551,13 @@ public class ChainController {
 
     /////////////////////////////////////////
     @GetMapping("/mempool")
-    ModelAndView showMempool(){
+    ModelAndView showMempool()throws GenericRpcException {
         ModelAndView mv = new ModelAndView("mempool");
         List<String> lstTxs = bitcClient.getRawMemPool();
-      //   System.out.println(bitcClient.listTransactions().toString());
+        
+        System.out.println(lstTxs);
         mv.addObject("txs", lstTxs);
+        mv.addObject("numTxs", lstTxs.size());
         return mv;
     }
 }
