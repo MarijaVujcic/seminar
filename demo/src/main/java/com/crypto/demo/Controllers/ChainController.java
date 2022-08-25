@@ -1,5 +1,6 @@
 package com.crypto.demo.Controllers;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,13 @@ import wf.bitcoin.javabitcoindrpcclient.GenericRpcException;
 public class ChainController {
 
     BitcoindRpcClient bitcClient = new BitcoinJSONRPCClient();
-
+    BigDecimal calculateVOut(List<Out> outlst) {
+            BigDecimal value = new BigDecimal(0);
+            for(int j=0;j<outlst.size();j++){
+               value = value.add(outlst.get(j).value());
+            }
+        return value;
+    }
     @PostMapping("/getBlockOrTx")
     ModelAndView showMeInfoBlock(@Validated String whatToShow){
         Block b;
@@ -47,15 +54,23 @@ public class ChainController {
         List<In> lstIn = null;
         List<Out> lstOut = null;
         List<String> txs = new ArrayList<String>();
+        BigDecimal value = BigDecimal.valueOf(0);
         try{
             if(whatToShow.length() < 64)
             {
                 b = bitcClient.getBlock(Integer.valueOf(whatToShow));
+                
             }
             else{
                 b = bitcClient.getBlock(whatToShow);
             }
             txs = b.tx();
+            List<RawTransaction> lst = bitcClient.getRawTransactions(txs);
+           
+            for(int i=0; i<lst.size(); i++){
+                List<Out> outlst = lst.get(i).vOut();
+                value = calculateVOut(outlst);
+            }
         }
         catch (Exception e){
             System.out.println("Error getting block");
@@ -67,9 +82,8 @@ public class ChainController {
                 tx = bitcClient.getRawTransaction(whatToShow);
                 lstIn = tx.vIn();
                 lstOut = tx.vOut();
+                value = calculateVOut(lstOut);
                 
-                
-                System.out.println(lstIn);
             }
             catch (Exception e){
                 System.out.println("Error getting transaction " + e.getMessage());
@@ -79,6 +93,7 @@ public class ChainController {
     
         ModelAndView m = new ModelAndView("blockInformations");
         m.addObject("block", b);
+        m.addObject("valueBlock", value);
         m.addObject("lstIn", lstIn);
         m.addObject("lstOut", lstOut);
         m.addObject("tx", tx);
@@ -122,7 +137,6 @@ public class ChainController {
         = restTemplate.getForEntity(fooResourceUrlMonth , String.class);
         if(responseMonth.getStatusCode().equals( HttpStatus.OK)){
             JSONObject jsonObjMonth = new JSONObject(responseMonth.getBody());
-            System.out.println("USLOO");
     
             JSONArray value2   = jsonObjMonth.getJSONArray("values");
             List<HashMap<String,Float>> result2 = new ObjectMapper().readValue(value2.toString(), new TypeReference<List<HashMap<String,Float>>>(){});
@@ -143,7 +157,6 @@ public class ChainController {
         = restTemplate.getForEntity(fooResourceUrlMonth , String.class);
         if(responseMonth.getStatusCode().equals( HttpStatus.OK)){
             JSONObject jsonObjMonth = new JSONObject(responseMonth.getBody());
-            System.out.println("USLOO");
     
             JSONArray value2   = jsonObjMonth.getJSONArray("values");
             List<HashMap<String,Float>> result2 = new ObjectMapper().readValue(value2.toString(), new TypeReference<List<HashMap<String,Float>>>(){});
@@ -184,7 +197,6 @@ public class ChainController {
         = restTemplate.getForEntity(fooResourceUrlMonth , String.class);
         if(responseMonth.getStatusCode().equals( HttpStatus.OK)){
             JSONObject jsonObjMonth = new JSONObject(responseMonth.getBody());
-            System.out.println("USLOO");
     
             JSONArray value2   = jsonObjMonth.getJSONArray("values");
             List<HashMap<String,Float>> result2 = new ObjectMapper().readValue(value2.toString(), new TypeReference<List<HashMap<String,Float>>>(){});
@@ -489,7 +501,7 @@ public class ChainController {
     }
     @GetMapping("/showSizeOfBlockchain60days")
     ModelAndView showMeGraphBlochchain60() throws JsonProcessingException, JsonMappingException {
-        ModelAndView mv = new ModelAndView("chart3");
+        ModelAndView mv = new ModelAndView("chart4");
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl
         = "https://api.blockchain.info/charts/blocks-size?timespan=60days&format=json";
@@ -548,15 +560,12 @@ public class ChainController {
         return mv;
     }
 
-
-
     /////////////////////////////////////////
     @GetMapping("/mempool")
     ModelAndView showMempool()throws GenericRpcException {
         ModelAndView mv = new ModelAndView("mempool");
         List<String> lstTxs = bitcClient.getRawMemPool();
-        
-        System.out.println(lstTxs);
+
         mv.addObject("txs", lstTxs);
         mv.addObject("numTxs", lstTxs.size());
         return mv;

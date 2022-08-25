@@ -85,6 +85,10 @@
                 <th>TX</th>
                 <td th:text="${block.tx}" />
             </tr>
+            <tr>
+              <th>VALUE OF TRANSACTIONS IN BTC</th>
+              <td > <span th:text ="${valueBlock}"></span></td>
+          </tr>
 
             <tr>
                 <th>DIFFICULTY</th>
@@ -146,7 +150,10 @@
                         </div>
                         </td>
                 </tr>
-               
+                <tr>
+                  <th>VALUE OF TRANSACTION IN BTC </th>
+                  <td > <span th:text ="${valueBlock}"></span></td>
+              </tr>
                 <tr>
                     <th>LOCK TIME</th>
                     <TD><span th:text = "${tx.lockTime}"></span></TD>
