@@ -1,6 +1,5 @@
 package com.crypto.demo.Controllers;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +52,6 @@ public class HomeController {
         = restTemplate.getForEntity(fooResourceUrl , String.class);
         if(response.getStatusCode().equals( HttpStatus.OK)){
             JSONObject jsonObj = new JSONObject(response.getBody());
-            System.out.println(jsonObj);
             mv.addObject("val", jsonObj);
 
         }
