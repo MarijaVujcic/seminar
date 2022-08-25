@@ -20,7 +20,7 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #bce0f9; height: 20%;" >
+    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #dcb1fdac; height: 20%;" >
       <a class="navbar-brand" href="/">BLOCKExplorer</a>
 
 
@@ -57,7 +57,26 @@
       <div class="starter-template">
 
       <div class="row">
-
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+            <h5 class="form-control mr-sm-2" style="font-weight: bold;color:rgb(124, 124, 236); text-align: center">LATEST VALUE OF 1 BTC IS EQUAL AS</h5>
+            <h5 class="form-control mr-sm-2" style="font-weight: bold;color:rgb(124, 124, 236);" name="1">EUR: [[${val.get("EUR").get("last")}]]</h5>
+            <h5 class="form-control mr-sm-2" style="font-weight: bold;color:rgb(124, 124, 236);" name="1">HRK: [[${val.get("HRK").get("last")}]]</h5>
+            <h5 class="form-control mr-sm-2" style="font-weight: bold;color:rgb(124, 124, 236);" name="1">USD: [[${val.get("USD").get("last")}]]</h5>
+          </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+            <h5 class="form-control mr-sm-2" style="font-weight: bold;color:rgb(124, 124, 236); text-align: center">CHANGE HRK TO BTC</h5>
+            <form th:action="@{/}" method="get">
+            <input class="form-control mr-sm-2" style="font-weight: bold;color:rgb(124, 124, 236);" name="valueToChange" placeholder="FOR HRK AMOUNT"></input>
+            <button class="btn btn-outline-primary" type="submit">CHANGE</button>
+            </form>
+            <h5 th:if="${change != null}" class="form-control mr-sm-2" style="font-weight: bold;color:rgb(124, 124, 236); text-align: center">[[${change}]] BTC</h5>
+          </div>
+          </div>
+        </div>
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">

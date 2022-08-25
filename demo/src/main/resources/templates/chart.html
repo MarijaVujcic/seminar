@@ -18,7 +18,7 @@
 	  </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <body>
-	<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #bce0f9; height: 20%;" >
+	<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #dcb1fdac; height: 20%;" >
 		<a class="navbar-brand" href="/">BLOCKExplorer</a>
   
   
@@ -38,6 +38,7 @@
 				  <a class="dropdown-item" href="/showGraphsAllTime">Total circulating bitcoins </a>
 				  <a class="dropdown-item" href="/showMarketPlaceAllTime">Market price</a>
 				  <a class="dropdown-item" href="/showConfirmedTransaction">Confirmed transactions</a>
+				  <a class="dropdown-item" href="/showSizeOfBlockchain">Size of blockchain</a>
 				</div>
 			  </li>
 		  </ul>
@@ -59,19 +60,19 @@
 		</div>
 		<div class="btn-group-vertical">
 			<a th:href="@{/showGraphLast30}"> 
-			<button type="button" class="btn btn-primary" th:ac> Last 30 days</button>
+			<button type="button" class="btn btn-outline-primary" th:ac> Last 30 days</button>
 			</a>
 			<a th:href="@{/showGraph60days}"> 
-			<button type="button" class="btn btn-primary">Last 60 days</button>
+			<button type="button" class="btn btn-outline-primary">Last 60 days</button>
 			</a>
 			<a th:href="@{/showGraph180days}"> 
-				<button type="button" class="btn btn-primary">Last 180 days  </button>
+				<button type="button" class="btn btn-outline-primary">Last 180 days  </button>
 			</a>
 			<a th:href="@{/showGraphLast3Years}"> 
-			<button type="button" class="btn btn-primary">Last 3 years</button>
+			<button type="button" class="btn btn-outline-primary">Last 3 years</button>
 			</a>
 			<a th:href="@{/showGraphsAllTime}"> 
-			<button type="button" class="btn btn-primary">All time  </button>
+			<button type="button" class="btn btn-outline-primary">All time  </button>
 			</a>
 
 		</div>
