@@ -45,6 +45,7 @@ public class ChainController {
             for(int j=0;j<outlst.size();j++){
                value = value.add(outlst.get(j).value());
             }
+        value = (value.divide(BigDecimal.valueOf(100000000)));
         return value;
     }
     @PostMapping("/getBlockOrTx")
